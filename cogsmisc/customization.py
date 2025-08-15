@@ -899,9 +899,7 @@ class Customization(commands.Cog):
             try:
                 # 4 bytes max per unicode character, sets a reasonable max on file size
                 value = await read_file_from_message(ctx, 4 * CVAR_SIZE_LIMIT)
-            except InvalidArgument as e:
-                raise e
-            except Exception:
+            except IndexError:
                 cvar = character.get_scope_locals().get(name)
                 if cvar is None:
                     return await ctx.send("This cvar is not defined.")
@@ -976,9 +974,7 @@ class Customization(commands.Cog):
             try:
                 # 4 bytes max per unicode character, sets a reasonable max on file size
                 value = await read_file_from_message(ctx, 4 * UVAR_SIZE_LIMIT)
-            except InvalidArgument as e:
-                raise e
-            except Exception:
+            except IndexError:
                 uvar = user_vars.get(name)
                 if uvar is None:
                     return await ctx.send("This uvar is not defined.")
@@ -1040,9 +1036,7 @@ class Customization(commands.Cog):
             try:
                 # 4 bytes max per unicode character, sets a reasonable max on file size
                 value = await read_file_from_message(ctx, 4 * SVAR_SIZE_LIMIT)
-            except InvalidArgument as e:
-                raise e
-            except Exception:
+            except IndexError:
                 svar = await helpers.get_svar(ctx, name)
                 if svar is None:
                     return await ctx.send("This svar is not defined.")
